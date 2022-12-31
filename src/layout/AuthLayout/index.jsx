@@ -11,9 +11,23 @@ import {
     Container,
     Row,
 } from "reactstrap";
-import { auth, facebookProvider } from "../../libs/firebase";
+import { auth, facebookProvider, googleProvider } from "../../libs/firebase";
+import { useLocation } from 'react-router-dom'
+import { useState } from "react";
+
+function generateTitle(pathname) {
+    if (pathname === '/register')
+        return "Register"
+    else if (pathname === '/login')
+        return "Login"
+    else
+        return ''
+}
 
 const AuthLayout = () => {
+    const { pathname } = useLocation()
+    const title = generateTitle(pathname)
+
     const handleLoginSocial = async (type) => {
         switch (type) {
             case "facebook":
@@ -25,6 +39,9 @@ const AuthLayout = () => {
                 console.log(result);
                 break;
             case "google":
+                await signInWithPopup(auth, googleProvider)
+                break;
+
             case "github":
             case "apple":
                 break;
@@ -36,7 +53,7 @@ const AuthLayout = () => {
             <Row className="justify-content-center align-items-center">
                 <Col lg={4} md={8}>
                     <Card>
-                        <CardHeader>Login</CardHeader>
+                        <CardHeader>{title}</CardHeader>
                         <CardBody>
                             <Outlet />
                         </CardBody>

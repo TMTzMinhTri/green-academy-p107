@@ -1,4 +1,11 @@
+import { signOut } from "firebase/auth"
+import { Button } from "reactstrap"
+import { auth } from "../../libs/firebase"
+
 const HomePage = () => {
-    return <div>HomePage</div>
+    const onLogout = async () => {
+        await signOut(auth)
+    }
+    return <div><Button onClick={onLogout}>Logout</Button></div>
 }
 export default HomePage

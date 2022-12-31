@@ -1,15 +1,57 @@
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Button, Form, FormGroup, Input, Label } from "reactstrap"
+import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap"
+import errorMessage from "../../common/errorMessage"
+import { auth } from "../../libs/firebase"
 
 const RegisterPage = () => {
+    const [error, setError] = useState('')
+    const [formValue, setFormValue] = useState({
+        email: "",
+        password: "",
+        password_confirmation: ""
+    })
+
+    const onChange = (e) => {
+        const { name, value } = e.target
+        // setFormValue((prev) => {
+        //     return {
+        //         ...prev,
+        //         [name]: value
+        //     }
+        // })
+        setFormValue((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        const { password, password_confirmation, email } = formValue
+        if (error) setError('')
+
+        if (password !== password_confirmation) {
+            setError('Password confimation not match')
+            return
+        }
+        try {
+            await createUserWithEmailAndPassword(auth, email, password)
+        } catch (error) {
+            const errorCode = error.code;
+            const errMessage = errorMessage(errorCode)
+            setError(errMessage)
+        }
+    }
+
     return <div className="my-2">
-        <Form>
+        <Form onSubmit={onSubmit}>
+            {error && <Alert color="danger">{error}</Alert>}
             <FormGroup floating>
                 <Input
                     id="email"
                     name="email"
+                    onChange={onChange}
                     placeholder="Email"
-                    type="email"
+                    type="text"
                 />
                 <Label for="email">
                     Email
@@ -20,6 +62,7 @@ const RegisterPage = () => {
                 <Input
                     id="password"
                     name="password"
+                    onChange={onChange}
                     placeholder="Password"
                     type="password"
                 />
@@ -31,6 +74,7 @@ const RegisterPage = () => {
                 <Input
                     id="password_confirmation"
                     name="password_confirmation"
+                    onChange={onChange}
                     placeholder="Password confirmation"
                     type="password"
                 />

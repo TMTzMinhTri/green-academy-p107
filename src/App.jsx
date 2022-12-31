@@ -13,7 +13,7 @@ function App() {
   const onSignOut = async () => {
     await signOut(auth)
   }
-
+  console.log(user)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -28,7 +28,7 @@ function App() {
   return (
     loading
       ? <Spinner />
-      : <AppRoutes />
+      : <AppRoutes currentUser={user} />
   )
 }
 
