@@ -6,6 +6,6 @@ const HomePage = () => {
     const onLogout = async () => {
         await signOut(auth)
     }
-    return <div><Button onClick={onLogout}>Logout</Button></div>
+    return <div><Button color="success" onClick={onLogout}>Logout</Button></div>
 }
 export default HomePage

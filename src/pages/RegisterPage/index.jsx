@@ -1,11 +1,11 @@
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap"
 import errorMessage from "../../common/errorMessage"
-import { auth } from "../../libs/firebase"
+import { AuthContext } from "../../contexts/AuthContext"
 
 const RegisterPage = () => {
+    const { register } = useContext(AuthContext)
     const [error, setError] = useState('')
     const [formValue, setFormValue] = useState({
         email: "",
@@ -15,12 +15,6 @@ const RegisterPage = () => {
 
     const onChange = (e) => {
         const { name, value } = e.target
-        // setFormValue((prev) => {
-        //     return {
-        //         ...prev,
-        //         [name]: value
-        //     }
-        // })
         setFormValue((prev) => ({ ...prev, [name]: value }))
     }
 
@@ -34,9 +28,10 @@ const RegisterPage = () => {
             return
         }
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            await register(email, password)
         } catch (error) {
             const errorCode = error.code;
+            console.log(error)
             const errMessage = errorMessage(errorCode)
             setError(errMessage)
         }

@@ -1,4 +1,3 @@
-import { signInWithPopup } from "firebase/auth";
 import { Outlet } from "react-router-dom";
 import {
     Button,
@@ -11,9 +10,9 @@ import {
     Container,
     Row,
 } from "reactstrap";
-import { auth, facebookProvider, googleProvider } from "../../libs/firebase";
 import { useLocation } from 'react-router-dom'
-import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function generateTitle(pathname) {
     if (pathname === '/register')
@@ -27,26 +26,7 @@ function generateTitle(pathname) {
 const AuthLayout = () => {
     const { pathname } = useLocation()
     const title = generateTitle(pathname)
-
-    const handleLoginSocial = async (type) => {
-        switch (type) {
-            case "facebook":
-                // signInWithPopup(auth, facebookProvider)
-                // .then((result) => {
-                //   console.log(result)
-                // }).catch()
-                const result = await signInWithPopup(auth, facebookProvider);
-                console.log(result);
-                break;
-            case "google":
-                await signInWithPopup(auth, googleProvider)
-                break;
-
-            case "github":
-            case "apple":
-                break;
-        }
-    };
+    const { login } = useContext(AuthContext)
 
     return (
         <Container>
@@ -60,7 +40,7 @@ const AuthLayout = () => {
                         <CardFooter className="text-center">
                             <ButtonGroup>
                                 <Button
-                                    onClick={() => handleLoginSocial("google")}
+                                    onClick={() => login("google")}
                                     color="primary"
                                     outline
                                 >
@@ -69,13 +49,13 @@ const AuthLayout = () => {
                                 <Button
                                     color="primary"
                                     outline
-                                    onClick={() => handleLoginSocial("facebook")}
+                                    onClick={() => login("facebook")}
                                 >
                                     Facebook
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onClick={() => handleLoginSocial("twitter")}
+                                    onClick={() => login("twitter")}
                                     outline
                                 >
                                     Twitter

@@ -4,8 +4,12 @@ import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import './index.css'
 
+// project dung lib css nao: bootstrap, taiwind, material, ant
+// redux: saga, thunk, toolkit
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
 )
+
+//single page
