@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import {
+    Alert,
     Button,
     Card,
     CardBody,
@@ -26,6 +27,7 @@ import { YoutubeContext } from "../../contexts/YoutubeContext";
 
 const ShareMoviePage = () => {
     const { shareVideo } = useContext(YoutubeContext)
+    const [err, setErr] = useState('')
     const [formValue, setFormValue] = useState({
         youtubeUrl: ''
     })
@@ -34,9 +36,14 @@ const ShareMoviePage = () => {
         setFormValue((prev) => ({ ...prev, [name]: value }))
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
-        shareVideo(formValue.youtubeUrl)
+        if (err) setErr('')
+        try {
+            await shareVideo(formValue.youtubeUrl)
+        } catch (error) {
+            setErr(error.message)
+        }
     }
 
     return (
@@ -46,6 +53,7 @@ const ShareMoviePage = () => {
                     <CardHeader>Share a youtube movie</CardHeader>
                     <CardBody>
                         <Form onSubmit={onSubmit}>
+                            {err && <Alert color="danger">{err}</Alert>}
                             <FormGroup row>
                                 <Label for="youtubeUrl" sm={3}>
                                     Youtube Url
