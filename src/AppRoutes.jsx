@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
+import YoutubeProvider from "./contexts/YoutubeContext";
 import AuthLayout from "./layout/AuthLayout";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ShareMoviePage from "./pages/ShareMoviePage";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 
 
@@ -41,12 +43,23 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<MainLayout />}>
+                <Route element={
+                    <YoutubeProvider>
+                        <MainLayout />
+                    </YoutubeProvider>}>
                     <Route
                         path="/"
                         element={
                             <RequiredAuth>
                                 <HomePage />
+                            </RequiredAuth>
+                        }
+                    />
+                    <Route
+                        path="/share-movie"
+                        element={
+                            <RequiredAuth>
+                                <ShareMoviePage />
                             </RequiredAuth>
                         }
                     />
