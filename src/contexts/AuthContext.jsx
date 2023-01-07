@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createContext, useEffect, useState } from "react";
 import { Spinner } from "reactstrap";
-import { auth, facebookProvider, googleProvider, storage } from "../libs/firebase";
+import { auth, db, facebookProvider, googleProvider, storage } from "../libs/firebase";
 
 export const AuthContext = createContext({
     currentUser: null,
@@ -10,12 +11,41 @@ export const AuthContext = createContext({
     logOut: () => { },
     register: () => { },
     updateProfile: () => { },
-    uploadAvatarToStorage: () => { }
+    uploadAvatarToStorage: () => { },
 })
+
+// collection(db, 'products')
+// doc(db, 'products', '2ifKDJtxVwRhFqa280w5')
 
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState(null)
+
+
+    const createNewUserIfNotExits = async (user) => {
+        const userRef = doc(db, 'users', user.uid)
+        const docSnap = await getDoc(userRef)
+        if (docSnap.exists()) {
+            return docSnap.data()
+        }
+        await createUser(user)
+    }
+
+    const createUser = async (user) => {
+        const data = {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            id: user.uid
+        }
+        // add new document (auto generate Id)
+        // const usersRef = collection(db, "users")
+        // const document = await addDoc(usersRef, data)
+
+        //add new document (seft control id)
+        const userRef = doc(db, 'users', user.uid)
+        await setDoc(userRef, data)
+    }
 
     const uploadAvatarToStorage = async (file) => {
         const storageRef = ref(storage, `avatar/${currentUser.email}`);
@@ -65,12 +95,13 @@ const AuthProvider = ({ children }) => {
         logOut,
         register,
         updateProfile: updateProfileCurrentUser,
-        uploadAvatarToStorage
+        uploadAvatarToStorage,
     }
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
+                await createNewUserIfNotExits(user)
                 setCurrentUser(user)
             } else {
                 setCurrentUser(null)

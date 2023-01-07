@@ -1,11 +1,16 @@
-import { signOut } from "firebase/auth"
-import { Button } from "reactstrap"
-import { auth } from "../../libs/firebase"
+import { useContext, useEffect } from "react"
+import { Button, Container } from "reactstrap"
+import { YoutubeContext } from "../../contexts/YoutubeContext"
 
 const HomePage = () => {
-    const onLogout = async () => {
-        await signOut(auth)
-    }
-    return <div><Button color="success" onClick={onLogout}>Logout</Button></div>
+    const { getYoutubeVideos } = useContext(YoutubeContext)
+
+    useEffect(() => {
+        getYoutubeVideos()
+    }, [])
+
+    return <Container>
+        <Button color="success" onClick={() => { }}>Create User</Button>
+    </Container>
 }
 export default HomePage

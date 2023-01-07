@@ -11,6 +11,7 @@ import {
     Input,
     Label,
     Row,
+    Spinner,
 } from "reactstrap";
 import { YoutubeContext } from "../../contexts/YoutubeContext";
 
@@ -27,6 +28,7 @@ import { YoutubeContext } from "../../contexts/YoutubeContext";
 
 const ShareMoviePage = () => {
     const { shareVideo } = useContext(YoutubeContext)
+    const [sumitting, setSubmitting] = useState(false)
     const [err, setErr] = useState('')
     const [formValue, setFormValue] = useState({
         youtubeUrl: ''
@@ -39,10 +41,17 @@ const ShareMoviePage = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if (err) setErr('')
+        setSubmitting(true)
         try {
             await shareVideo(formValue.youtubeUrl)
+            setFormValue({
+                youtubeUrl: ''
+            })
+
         } catch (error) {
             setErr(error.message)
+        } finally {
+            setSubmitting(false)
         }
     }
 
@@ -68,8 +77,13 @@ const ShareMoviePage = () => {
                                         type="url"
                                     />
 
-                                    <Button block color="success" size="sm" className="mt-3">
-                                        Share
+                                    <Button
+                                        disabled={sumitting}
+                                        block
+                                        color="success"
+                                        size="sm"
+                                        className="mt-3">
+                                        Share {sumitting && <Spinner size={'sm'} />}
                                     </Button>
                                 </Col>
                             </FormGroup>

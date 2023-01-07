@@ -1,8 +1,12 @@
-import { createContext } from "react";
+import { addDoc, collection, getDocs, setDoc } from "firebase/firestore";
+import { createContext, useContext } from "react";
 import { config } from "../config";
+import { db } from "../libs/firebase";
+import { AuthContext } from "./AuthContext";
 
 export const YoutubeContext = createContext({
-    shareVideo: (url) => { }
+    shareVideo: (url) => { },
+    getYoutubeVideos: () => { }
 })
 
 const youtubeUrlPattern = /^((http|https)\:\/\/)?(www\.youtube\.com|youtu\.?be)\/((watch\?v=)?([a-zA-Z0-9]{11}))(&.*)*$/
@@ -13,6 +17,21 @@ const youtubeUrlPattern = /^((http|https)\:\/\/)?(www\.youtube\.com|youtu\.?be)\
 // Accept: application/json
 
 const YoutubeProvider = ({ children }) => {
+    const { currentUser } = useContext(AuthContext)
+    const getYoutubeVideos = async () => {
+        const videosRef = collection(db, 'videos')
+        const querySnapshot = await getDocs(videosRef)
+        const youtubeData = []
+        querySnapshot.forEach((doc) => {
+            youtubeData.push(doc.data())
+        })
+
+        const videoIds = youtubeData.map((item) => item.videoId)
+        const videos = await validateVideoId(videoIds)
+        console.log(videos)
+    }
+
+
     const getVideoIdFromYoutubeUrl = (url) => {
         return new Promise((resolve, reject) => {
             const result = url.match(youtubeUrlPattern)
@@ -23,8 +42,16 @@ const YoutubeProvider = ({ children }) => {
         })
     }
     const validateVideoId = (videoId) => {
+        let idParams = ''
+        if (typeof videoId === 'string') {
+            idParams = `&id=${videoId}`
+        } else {
+            idParams = videoId
+                .map(item => `&id=${item}`)
+                .join('')
+        }
         return new Promise((resolve, reject) => {
-            fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${config.firebase.apiKey}`)
+            fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet${idParams}&key=${config.firebase.apiKey}`)
                 .then((response) => response.json())
                 .then(data => {
                     if (data.items.length === 0) {
@@ -36,14 +63,17 @@ const YoutubeProvider = ({ children }) => {
     }
     const shareVideo = async (url) => {
         const videoId = await getVideoIdFromYoutubeUrl(url)
-        const youtubeData = await validateVideoId(videoId)
+        await validateVideoId(videoId)
 
-
-        console.log(youtubeData)
-
+        const videoRef = collection(db, 'videos')
+        const data = {
+            videoId,
+            createBy: currentUser.uid
+        }
+        await addDoc(videoRef, data)
     }
 
-    const value = { shareVideo }
+    const value = { shareVideo, getYoutubeVideos }
     return <YoutubeContext.Provider value={value}>
         {children}
     </YoutubeContext.Provider>
