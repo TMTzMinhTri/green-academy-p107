@@ -6,6 +6,12 @@ const path = require('path')
 const nextConfig = {
   trailingSlash: true,
   reactStrictMode: false,
+  env: {
+    API_DOMAIN: process.env.API_DOMAIN,
+    WEB_SOCKET_DOMAIN: process.env.WEB_SOCKET_DOMAIN,
+    CALLBACK_URL: process.env.CALLBACK_URL,
+    SSO_ENDPOINT: process.env.SSO_ENDPOINT
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,

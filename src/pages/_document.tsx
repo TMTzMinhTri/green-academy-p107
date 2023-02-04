@@ -11,6 +11,20 @@ import createEmotionServer from '@emotion/server/create-instance'
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
 class CustomDocument extends Document {
+  getSdk = () => {
+    switch (process.env.NODE_ENV) {
+      case 'production':
+        return 'https://id.hainong.vn/js/sdk/sdk.js'
+      case 'staging':
+        return 'https://staging.id.hainong.vn/js/sdk/sdk.js'
+
+      case 'development':
+        return 'https://dev.id.hainong.vn/js/sdk/sdk.js'
+
+      default:
+        return 'https://dev.id.hainong.vn/js/sdk/sdk.js'
+    }
+  }
   render() {
     return (
       <Html lang='en'>
@@ -27,6 +41,7 @@ class CustomDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script src={this.getSdk()}></script>
         </body>
       </Html>
     )
@@ -41,12 +56,12 @@ CustomDocument.getInitialProps = async ctx => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: App => props =>
-        (
-          <App
-            {...props} // @ts-ignore
-            emotionCache={cache}
-          />
-        )
+      (
+        <App
+          {...props} // @ts-ignore
+          emotionCache={cache}
+        />
+      )
     })
 
   const initialProps = await Document.getInitialProps(ctx)
