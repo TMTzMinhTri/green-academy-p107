@@ -1,5 +1,6 @@
-import { AnyAction, configureStore } from '@reduxjs/toolkit'
+import { Action, AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import combinedReducer from './rootReducer'
 
 const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) => {
@@ -14,10 +15,18 @@ const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) =
   }
 }
 
-const makeStore = () =>
-  configureStore({
-    reducer,
-    devTools: true
-  })
+const store = configureStore({
+  reducer,
+  devTools: true
+})
+const makeStore = () => store
 
-export const wrapper = createWrapper(makeStore)
+const wrapper = createWrapper(makeStore)
+
+export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
+
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export default wrapper

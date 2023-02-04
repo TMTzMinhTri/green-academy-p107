@@ -1,3 +1,4 @@
-export interface IAuthState {
+export interface IAuthReducer {
+  isLoading: boolean
   currentUser: null
 }

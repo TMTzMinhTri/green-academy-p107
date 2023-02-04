@@ -17,7 +17,9 @@ const instance = axios.create({
     'Device-Name': browserName,
     'Os-Version': browserVersion,
     'App-Version': 1,
-    'Content-Type': 'application/json'
+    // 'Content-Type': 'application/json'
+    Accept: 'multipart/form-data',
+    'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'
   }
 })
 

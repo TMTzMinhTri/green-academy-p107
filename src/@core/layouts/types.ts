@@ -39,6 +39,10 @@ export type LayoutProps = {
   verticalNavMenuBranding?: (props?: any) => ReactNode
   afterVerticalNavMenuContent?: (props?: any) => ReactNode
   beforeVerticalNavMenuContent?: (props?: any) => ReactNode
+
+  horizontalLeftContent?: (props?: any) => ReactNode
+  horizontalRightContent?: (props?: any) => ReactNode
+  afterHorizontalAppBarContent?: (props?: any) => ReactNode
 }
 
 export type BlankLayoutProps = {

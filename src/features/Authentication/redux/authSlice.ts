@@ -1,24 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { IAuthReducer } from '../types'
+import { getProfileBuilder, getProfile } from './actions/getProfileAction'
 
-const initialState = {
-  authState: false,
-  authUser: ''
+const initialState: IAuthReducer = {
+  currentUser: null,
+  isLoading: true
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setAuthState(state, action) {
-      state.authState = action.payload
-    },
-    setAuthUser(state, action) {
-      state.authUser = action.payload
-    }
+  reducers: {},
+  extraReducers(builder) {
+    getProfileBuilder(builder)
   }
 })
 
-export const { setAuthState, setAuthUser } = authSlice.actions
-export const selectAuthState = state => state.auth.authState
-export const selectAuthUser = state => state.auth.authUser
+export const authActions = { ...authSlice.actions, getProfile }
+
 export default authSlice.reducer

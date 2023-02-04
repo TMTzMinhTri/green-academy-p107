@@ -16,12 +16,12 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Dashboard',
+      title: 'Trang Cá Nhân',
       icon: HomeOutline,
       path: '/'
     },
     {
-      title: 'Account Settings',
+      title: 'Quầy hàng của bạn',
       icon: AccountCogOutline,
       path: '/account-settings'
     },
@@ -29,49 +29,43 @@ const navigation = (): VerticalNavItemsType => {
       sectionTitle: 'Pages'
     },
     {
-      title: 'Login',
+      title: 'Đã lưu',
       icon: Login,
       path: '/pages/login',
       openInNewTab: true
     },
     {
-      title: 'Register',
+      title: 'Bài viết của bạn',
       icon: AccountPlusOutline,
       path: '/pages/register',
       openInNewTab: true
     },
     {
-      title: 'Error',
-      icon: AlertCircleOutline,
-      path: '/pages/error',
-      openInNewTab: true
+      sectionTitle: 'Lối tắt của bạn'
     },
     {
-      sectionTitle: 'User Interface'
-    },
-    {
-      title: 'Typography',
+      title: 'Chợ 2 nông',
       icon: FormatLetterCase,
       path: '/typography'
     },
     {
-      title: 'Icons',
+      title: 'Diễn đàn nông nghiệp',
       path: '/icons',
       icon: GoogleCirclesExtended
     },
     {
-      title: 'Cards',
+      title: 'Thời tiết',
       icon: CreditCardOutline,
       path: '/cards'
     },
     {
-      title: 'Tables',
+      title: 'Giá cả thị trường',
       icon: Table,
       path: '/tables'
     },
     {
+      title: 'Trộn phân NPK',
       icon: CubeOutline,
-      title: 'Form Layouts',
       path: '/form-layouts'
     }
   ]

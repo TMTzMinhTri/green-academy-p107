@@ -20,10 +20,23 @@ import Grid from '@mui/material/Grid'
 // import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 // import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 // import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
-// import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import SalesByCountries from 'src/views/dashboard/SalesByCountries'
 
 const Dashboard = () => {
-  return <div></div>
+  return (
+    <>
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+      <SalesByCountries />
+    </>
+  )
 }
 
 export default Dashboard

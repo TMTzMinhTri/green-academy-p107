@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -28,7 +28,9 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 // ** Global css styles
 import '../../styles/globals.css'
-import { wrapper } from 'src/@core/redux/store'
+import wrapper from 'src/@core/redux/store'
+import MainLayout from 'src/layouts/MainLayout'
+import Authentication from 'src/features/Authentication/Authentication'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -53,10 +55,10 @@ if (themeConfig.routingLoader) {
 
 // ** Configure JSS & ClassName
 const App = ({ Component, ...rest }: ExtendedAppProps) => {
-  const { store, props } = wrapper.useWrappedStore(rest);
+  const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
   // Variables
-  const getLayout = Component.getLayout ?? (page => <div>{page}</div>)
+  const getLayout = Component.getLayout ?? (page => <MainLayout>{page}</MainLayout>)
 
   return (
     <CacheProvider value={emotionCache}>
@@ -70,13 +72,15 @@ const App = ({ Component, ...rest }: ExtendedAppProps) => {
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
       <Provider store={store}>
-        <SettingsProvider>
-          <SettingsConsumer>
-            {({ settings }) => {
-              return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
-            }}
-          </SettingsConsumer>
-        </SettingsProvider>
+        <Authentication>
+          <SettingsProvider>
+            <SettingsConsumer>
+              {({ settings }) => {
+                return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
+              }}
+            </SettingsConsumer>
+          </SettingsProvider>
+        </Authentication>
       </Provider>
     </CacheProvider>
   )
