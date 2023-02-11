@@ -41,7 +41,7 @@ class CustomDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script src={this.getSdk()}></script>
+          <script src={this.getSdk()} defer></script>
         </body>
       </Html>
     )

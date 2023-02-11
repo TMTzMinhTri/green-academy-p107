@@ -12,6 +12,14 @@ const nextConfig = {
     CALLBACK_URL: process.env.CALLBACK_URL,
     SSO_ENDPOINT: process.env.SSO_ENDPOINT
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "dev.panel.hainong.vn",
+      },
+    ],
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,

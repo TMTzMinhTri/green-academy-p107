@@ -4,6 +4,7 @@ import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
+
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -28,6 +29,11 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 // ** Global css styles
 import '../../styles/globals.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
 import wrapper from 'src/@core/redux/store'
 import MainLayout from 'src/layouts/MainLayout'
 import Authentication from 'src/features/Authentication/Authentication'
@@ -57,6 +63,7 @@ if (themeConfig.routingLoader) {
 const App = ({ Component, ...rest }: ExtendedAppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
+
   // Variables
   const getLayout = Component.getLayout ?? (page => <MainLayout>{page}</MainLayout>)
 

@@ -23,8 +23,9 @@ const InputSearch = styled(TextField)<TextFieldProps>(({ theme }) => ({
   }
 }))
 
-const AppBarContent: FunctionComponent<IAppBarContent> = (props: IAppBarContent) => {
-  const { hidden } = props
+const AppBarContent: FunctionComponent<IAppBarContent> = () => {
+  // const { hidden } = props
+
   return (
     <Container>
       <Grid container sx={{ width: '100%' }}>

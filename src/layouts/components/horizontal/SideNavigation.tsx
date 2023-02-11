@@ -1,4 +1,4 @@
-import { Box, List, Paper } from '@mui/material'
+import { List, Paper } from '@mui/material'
 import React, { FunctionComponent, useState } from 'react'
 import { Settings } from 'src/@core/context/settingsContext'
 import VerticalNavItems from 'src/@core/layouts/components/vertical/navigation/VerticalNavItems'
