@@ -1,5 +1,6 @@
-import { CircularProgress, Tab, Tabs } from '@mui/material'
 import React, { FunctionComponent } from 'react'
+import { Box, CircularProgress, IconButton, Tab, Tabs } from '@mui/material'
+import { Reload } from 'mdi-material-ui'
 import { selectListPostCatalogue, selectLoadingPostCatalogue } from 'src/@core/redux/post/post.selector'
 import { useAppSelector } from 'src/@core/redux/store'
 
@@ -12,20 +13,29 @@ const TabPostCatalogue: FunctionComponent = () => {
     setValue(newValue)
   }
   return (
-    <Tabs
-      sx={{ backgroundColor: 'background.paper' }}
-      value={value}
-      onChange={handleChange}
-      variant='scrollable'
-      scrollButtons='auto'
-      aria-label='scrollable auto tabs example'
-    >
+    <Box sx={{ width: '100%', backgroundColor: 'background.paper', textAlign: 'center' }}>
       {isLoading ? (
-        <CircularProgress sx={{ margin: 'auto' }} />
+        <CircularProgress />
       ) : (
-        postCatalogue.map(item => <Tab key={item.id} label={item.name} />)
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Tabs
+            sx={{ backgroundColor: 'background.paper' }}
+            value={value}
+            onChange={handleChange}
+            variant='scrollable'
+            scrollButtons='auto'
+            aria-label='scrollable auto tabs example'
+          >
+            {postCatalogue.map(item => (
+              <Tab key={item.id} label={item.name} />
+            ))}
+          </Tabs>
+          <IconButton>
+            <Reload />
+          </IconButton>
+        </Box>
       )}
-    </Tabs>
+    </Box>
   )
 }
 

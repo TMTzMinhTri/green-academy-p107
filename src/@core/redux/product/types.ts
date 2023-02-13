@@ -26,7 +26,7 @@ export interface IProduct {
   wholesale_price: number
 }
 
-interface IImage {
+export interface IImage {
   id: number
   imageable_id: string
   imageable_type: string

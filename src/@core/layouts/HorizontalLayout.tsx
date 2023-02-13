@@ -13,7 +13,7 @@ const HorizontalLayout: React.FunctionComponent<PropsWithChildren<LayoutProps>> 
   const toggleNavVisibility = () => setNavVisible(!navVisible)
 
   return (
-    <div>
+    <>
       <AppBar toggleNavVisibility={toggleNavVisibility} {...props} />
       {(afterHorizontalAppBarContent && afterHorizontalAppBarContent(props)) || null}
       <Container maxWidth='xl' sx={{ background: grey[300] }}>
@@ -21,18 +21,18 @@ const HorizontalLayout: React.FunctionComponent<PropsWithChildren<LayoutProps>> 
           <Grid item xs={12}>
             <TabPostCatalogue />
           </Grid>
-          <Grid item md={3}>
+          <Grid item md={3} xs={12}>
             {horizontalLeftContent && horizontalLeftContent(props)}
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             {children}
           </Grid>
-          <Grid item md={3}>
+          <Grid item md={3} xs={12}>
             {horizontalRightContent && horizontalRightContent(props)}
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </>
   )
 }
 

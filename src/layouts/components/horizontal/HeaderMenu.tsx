@@ -3,6 +3,7 @@ import { Grid, IconButton, Box } from '@mui/material'
 import NewspaperVariantMultipleOutlineIcon from 'mdi-material-ui/NewspaperVariantMultipleOutline'
 import PlayBoxOutlineIcon from 'mdi-material-ui/PlayBoxOutline'
 import SealVariantIcon from 'mdi-material-ui/SealVariant'
+import Link from 'next/link'
 
 const HeaderMenu = () => {
   return (
@@ -14,19 +15,25 @@ const HeaderMenu = () => {
       sx={{ position: 'sticky', top: 0, zIndex: 2 }}
     >
       <Grid item>
-        <IconButton>
-          <NewspaperVariantMultipleOutlineIcon fontSize='large' />
-        </IconButton>
+        <Link href={'/'}>
+          <IconButton>
+            <NewspaperVariantMultipleOutlineIcon fontSize='large' />
+          </IconButton>
+        </Link>
       </Grid>
       <Grid item>
-        <IconButton>
-          <PlayBoxOutlineIcon fontSize='large' />
-        </IconButton>
+        <Link href={'/'}>
+          <IconButton>
+            <PlayBoxOutlineIcon fontSize='large' />
+          </IconButton>
+        </Link>
       </Grid>
       <Grid item>
-        <IconButton>
-          <NewspaperVariantMultipleOutlineIcon fontSize='large' />
-        </IconButton>
+        <Link href={'/tin-tuc'}>
+          <IconButton>
+            <NewspaperVariantMultipleOutlineIcon fontSize='large' />
+          </IconButton>
+        </Link>
       </Grid>
       <Grid item>
         <IconButton>
