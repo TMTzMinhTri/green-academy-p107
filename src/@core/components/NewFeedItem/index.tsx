@@ -16,12 +16,27 @@ import { DotsHorizontal, ThumbUp, ThumbUpOutline, MessageOutline, ShareOutline, 
 import { blue, grey, red } from '@mui/material/colors'
 import ReactTimeAgo from 'react-time-ago'
 import PreviewAttachment from '../PreviewAttachment'
+import { useDispatch } from 'react-redux'
+import { postActions } from 'src/@core/redux/post/post.slice'
 
 interface INewFeedItemProps {
   item: IPost
 }
 
 function NewFeedItem({ item }: INewFeedItemProps) {
+  const dispatch = useDispatch()
+
+  const onClickPost = () => {
+    dispatch(
+      postActions.likePost({
+        id: item.id,
+        liked: item.user_liked,
+        classable_id: item.classable_id,
+        classable_type: item.classable_type
+      })
+    )
+  }
+
   return (
     <Grid item xs={12}>
       <Card>
@@ -77,7 +92,7 @@ function NewFeedItem({ item }: INewFeedItemProps) {
         </Box>
         <Box sx={{ backgroundColor: grey[100] }}>
           <ButtonGroup variant='text' aria-label='text button group' fullWidth>
-            <Button>
+            <Button onClick={onClickPost}>
               <Typography
                 variant='subtitle1'
                 component={'span'}

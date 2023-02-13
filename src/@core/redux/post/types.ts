@@ -1,3 +1,4 @@
+import { IParamsLikesPost } from 'src/@core/api/post.api'
 import { IImage } from '../product/types'
 
 export interface IPostReducer {
@@ -37,4 +38,11 @@ export interface IPost {
   short_title: string
   shared_post_id: number
   created_at: string
+  classable_id: number
+  classable_type: string
+}
+
+export interface IPayloadLikeAction extends IParamsLikesPost {
+  id: number
+  liked: boolean
 }

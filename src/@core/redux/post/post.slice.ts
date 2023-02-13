@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IPost, IPostCatalogue, IPostReducer } from './types'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IPayloadLikeAction, IPost, IPostCatalogue, IPostReducer } from './types'
 
 const initialState: IPostReducer = {
   postCatalogue: {
@@ -26,10 +26,16 @@ const postSlice = createSlice({
     fetchListPostSuccess: (state, action: PayloadAction<Record<string, IPost>>) => {
       state.post.isLoading = true
       state.post.data = action.payload
+    },
+    updatePostById: (state, action: PayloadAction<{ id: string; data: IPost }>) => {
+      state.post.data[action.payload['id']] = action.payload.data
     }
   }
 })
+const likePost = createAction('posts/likePost', (payload: IPayloadLikeAction) => ({
+  payload
+}))
 
-export const postActions = postSlice.actions
+export const postActions = { ...postSlice.actions, likePost }
 
 export default postSlice
