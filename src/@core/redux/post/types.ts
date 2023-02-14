@@ -1,4 +1,3 @@
-import { IParamsLikesPost } from 'src/@core/api/post.api'
 import { IImage } from '../product/types'
 
 export interface IPostReducer {
@@ -20,7 +19,6 @@ export interface IPostCatalogue {
 export interface IPost {
   id: number
   images: Array<IImage>
-
   member_rate: string
   province_name: string
   shop_image: string
@@ -40,9 +38,29 @@ export interface IPost {
   created_at: string
   classable_id: number
   classable_type: string
+  comments: Record<string, IComment>
 }
 
-export interface IPayloadLikeAction extends IParamsLikesPost {
+export interface IPayloadLikeAction extends IParamsPolymorphic {
   id: number
   liked: boolean
+}
+export interface IPayloadFetchComment extends IParamsPolymorphic {
+  id: number
+}
+export interface IComment {
+  id: number
+  classable_id: string
+  classable_type: string
+  commentable_id: number
+  commentable_type: string
+  content: string
+  total_answers: number
+  total_likes: number
+  user_commented?: boolean
+  user_id: number
+  user_liked: boolean
+  created_name: string
+  created_at: string
+  user: any
 }

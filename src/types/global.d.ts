@@ -13,4 +13,9 @@ declare global {
     success: boolean
     msg: string
   }
+
+  interface IParamsPolymorphic {
+    classable_id: number
+    classable_type: string
+  }
 }

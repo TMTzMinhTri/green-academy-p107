@@ -9,6 +9,10 @@ import {
   Chip,
   Grid,
   IconButton,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  TextField,
   Typography
 } from '@mui/material'
 import { IPost } from 'src/@core/redux/post/types'
@@ -16,25 +20,47 @@ import { DotsHorizontal, ThumbUp, ThumbUpOutline, MessageOutline, ShareOutline, 
 import { blue, grey, red } from '@mui/material/colors'
 import ReactTimeAgo from 'react-time-ago'
 import PreviewAttachment from '../PreviewAttachment'
-import { useDispatch } from 'react-redux'
-import { postActions } from 'src/@core/redux/post/post.slice'
+import React, { MutableRefObject, useRef } from 'react'
+import Link from 'next/link'
+import Comment from '../Comment'
+import CommentInput from '../Comment/CommentInput'
 
 interface INewFeedItemProps {
   item: IPost
+  onClickLikePost: (item: IPost) => void
+  onClickSharePoint: ({ item, type }: { item: IPost; type: 'share-point' }) => void
+  onCickSharePost: ({ item, type }: { item: IPost; type: 'share-post' }) => void
+  onFetchComments: ({ item }: { item: IPost }) => void
+  onSubmitComment: (formValue: any) => void
 }
 
-function NewFeedItem({ item }: INewFeedItemProps) {
-  const dispatch = useDispatch()
+function NewFeedItem({
+  item,
+  onClickLikePost,
+  onClickSharePoint,
+  onCickSharePost,
+  onFetchComments,
+  onSubmitComment
+}: INewFeedItemProps) {
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [showInput, setShowInput] = React.useState(false)
 
-  const onClickPost = () => {
-    dispatch(
-      postActions.likePost({
-        id: item.id,
-        liked: item.user_liked,
-        classable_id: item.classable_id,
-        classable_type: item.classable_type
-      })
-    )
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
+    if (event === null) {
+      setAnchorEl(null)
+    } else {
+      setAnchorEl(event.currentTarget)
+    }
+  }
+
+  const handleClickComment = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!showInput) {
+      setShowInput(true)
+      onFetchComments({ item })
+    } else {
+      inputRef?.current.focus()
+    }
   }
 
   return (
@@ -47,14 +73,29 @@ function NewFeedItem({ item }: INewFeedItemProps) {
             </Avatar>
           }
           action={
-            <Box display={'flex'}>
+            <Box display={'flex'} alignItems='center'>
               <Box textAlign={'right'} marginRight={2}>
                 <Typography>Bậc hội viên</Typography>
                 <Typography>{item.member_rate}</Typography>
               </Box>
-              <IconButton aria-label='settings'>
+              <IconButton aria-label='settings' onClick={handleClick}>
                 <DotsHorizontal />
               </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClick(null)}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                <MenuItem>
+                  <Link href='/' onClick={() => handleClick(null)}>
+                    Chi tiết
+                  </Link>
+                </MenuItem>
+                <MenuItem>Share facebook</MenuItem>
+                <MenuItem>Vi phạm</MenuItem>
+              </Menu>
             </Box>
           }
           title={
@@ -92,7 +133,7 @@ function NewFeedItem({ item }: INewFeedItemProps) {
         </Box>
         <Box sx={{ backgroundColor: grey[100] }}>
           <ButtonGroup variant='text' aria-label='text button group' fullWidth>
-            <Button onClick={onClickPost}>
+            <Button onClick={() => onClickLikePost(item)}>
               <Typography
                 variant='subtitle1'
                 component={'span'}
@@ -112,7 +153,7 @@ function NewFeedItem({ item }: INewFeedItemProps) {
                 Thích
               </Typography>
             </Button>
-            <Button>
+            <Button onClick={() => onClickSharePoint({ item, type: 'share-point' })}>
               <Typography
                 variant='subtitle1'
                 component={'span'}
@@ -122,7 +163,7 @@ function NewFeedItem({ item }: INewFeedItemProps) {
                 Tặng điểm
               </Typography>
             </Button>
-            <Button>
+            <Button onClick={handleClickComment}>
               <Typography
                 variant='subtitle1'
                 component={'span'}
@@ -132,7 +173,7 @@ function NewFeedItem({ item }: INewFeedItemProps) {
                 Bình luận
               </Typography>
             </Button>
-            <Button>
+            <Button onClick={() => onCickSharePost({ type: 'share-post', item })}>
               <Typography
                 variant='subtitle1'
                 component={'span'}
@@ -143,6 +184,12 @@ function NewFeedItem({ item }: INewFeedItemProps) {
               </Typography>
             </Button>
           </ButtonGroup>
+        </Box>
+        <Box px={4} py={2}>
+          {showInput && <CommentInput ref={inputRef} onSubmit={onSubmitComment} />}
+          {Object.values(item.comments).map(comment => (
+            <Comment item={comment} key={comment.id} />
+          ))}
         </Box>
       </Card>
     </Grid>

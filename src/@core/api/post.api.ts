@@ -6,10 +6,6 @@ import { IPost, IPostCatalogue } from '../redux/post/types'
 interface IParamsGetListPost extends IParamsPagination {
   container: 'home'
 }
-export interface IParamsLikesPost {
-  classable_id: number
-  classable_type: string
-}
 
 const postApi = {
   getListPost: (params: IParamsGetListPost): Promise<AxiosResponse<IPost[]>> => {
@@ -18,11 +14,14 @@ const postApi = {
   getListPostCatalogue: (): Promise<AxiosResponse<IPostCatalogue>> => {
     return axios.get(postApiPath.getListPostCatalogue)
   },
-  likePost: (params: IParamsLikesPost) => {
+  likePost: (params: IParamsPolymorphic) => {
     return axios.post(postApiPath.likePost, { ...params })
   },
-  unlikePost: (params: IParamsLikesPost) => {
+  unlikePost: (params: IParamsPolymorphic) => {
     return axios.post(postApiPath.unLikePost, { ...params })
+  },
+  getCommentsInPost: (params: IParamsPolymorphic & IParamsPagination) => {
+    return axios.get(postApiPath.fetchCommentsInPost, { params })
   }
 }
 

@@ -49,12 +49,16 @@ function* fetchWeatherInLocation() {
   const { currentUser } = yield select((state: RootState) => state.global)
   const { lng, lat } = currentUser
   let response
-  if (lng && lat) {
-    response = yield call(weatherApi.getCurrentWeather, { lat, lng })
+  try {
+    if (lng && lat) {
+      response = yield call(weatherApi.getCurrentWeather, { lat, lng })
+    }
+    response = yield call(weatherApi.getCurrentWeather, { lat: '10.8058', lng: '106.6382' })
+    const { data } = response
+    yield put(weatherActions.fetchCurrentWeatherSuccess(data))
+  } catch (error) {
+    console.log(error)
   }
-  response = yield call(weatherApi.getCurrentWeather, { lat: '10.8058', lng: '106.6382' })
-  const { data } = response
-  yield put(weatherActions.fetchCurrentWeatherSuccess(data))
 }
 
 function* fetchDataInitLayout() {

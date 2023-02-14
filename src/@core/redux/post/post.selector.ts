@@ -8,3 +8,5 @@ export const selectListPost = createSelector(
   (state: RootState) => state.post,
   post => Object.values(post.post.data)
 )
+
+export const selectLoadingListPost = (state: RootState) => state.post.post.isLoading
