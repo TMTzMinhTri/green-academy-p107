@@ -7,5 +7,6 @@ export const youtubeGetID = url => {
       ID = ID[0]
     }
   }
+
   return ID
 }

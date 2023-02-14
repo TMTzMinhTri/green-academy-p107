@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import TimeAgo from 'javascript-time-ago'
 import vi from 'javascript-time-ago/locale/vi.json'
+
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -61,6 +62,7 @@ if (themeConfig.routingLoader) {
 }
 TimeAgo.setDefaultLocale(vi.locale)
 TimeAgo.addLocale(vi)
+
 // ** Configure JSS & ClassName
 const App = ({ Component, ...rest }: ExtendedAppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest)

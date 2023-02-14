@@ -15,7 +15,7 @@ const Attachment: FunctionComponent<IAttachmentProps> = ({ image }) => {
       {type === 'video' ? (
         <ReactPlayer url={image.name} width='100%' controls={true} height={'300px'} />
       ) : (
-        <img src={image.name} loading='lazy' className='MuiImageListItem-img' />
+        <img src={image.name} loading='lazy' className='MuiImageListItem-img' alt={image.name} />
       )}
     </ButtonBase>
   )

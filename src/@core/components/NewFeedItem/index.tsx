@@ -9,10 +9,8 @@ import {
   Chip,
   Grid,
   IconButton,
-  InputAdornment,
   Menu,
   MenuItem,
-  TextField,
   Typography
 } from '@mui/material'
 import { IPost } from 'src/@core/redux/post/types'
@@ -20,7 +18,7 @@ import { DotsHorizontal, ThumbUp, ThumbUpOutline, MessageOutline, ShareOutline, 
 import { blue, grey, red } from '@mui/material/colors'
 import ReactTimeAgo from 'react-time-ago'
 import PreviewAttachment from '../PreviewAttachment'
-import React, { MutableRefObject, useRef } from 'react'
+import React, { useRef } from 'react'
 import Link from 'next/link'
 import Comment from '../Comment'
 import CommentInput from '../Comment/CommentInput'
@@ -54,7 +52,7 @@ function NewFeedItem({
     }
   }
 
-  const handleClickComment = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickComment = () => {
     if (!showInput) {
       setShowInput(true)
       onFetchComments({ item })

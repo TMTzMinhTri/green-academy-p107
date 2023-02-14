@@ -4,8 +4,8 @@ import { browserName, browserVersion } from 'react-device-detect'
 const getDataInStorage = () => {
   const currentUser = JSON.parse(localStorage.getItem('user_storage')) || {}
   const deviceToken = JSON.parse(localStorage.getItem('device')) || null
-  
-return {
+
+  return {
     deviceToken,
     currentUser
   }
@@ -33,8 +33,8 @@ instance.interceptors.request.use(config => {
   config.headers['Authorization'] = token.length > 0 ? `Bearer ${token}` : token
   config.headers['Device-Id'] = `${current_user?.id}-${current_user?.phone}-${browserVersion}`
   config.headers['Device-Token'] = deviceToken
-  
-return config
+
+  return config
 })
 
 instance.interceptors.response.use(response => {

@@ -19,7 +19,7 @@ import { useAppSelector } from 'src/@core/redux/store'
 import { selectCurrentWeather, selectLoadingCurrentWeather } from 'src/@core/redux/weather/weather.selector'
 import Image from 'next/image'
 
-const TemperatureText = styled(Typography)<TypographyProps>(({ theme }) => ({
+const TemperatureText = styled(Typography)<TypographyProps>(() => ({
   fontWeight: 'bold',
   '&:after': {
     content: '"°C"'

@@ -12,6 +12,7 @@ const TabPostCatalogue: FunctionComponent = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
+
   return (
     <Box sx={{ width: '100%', backgroundColor: 'background.paper', textAlign: 'center' }}>
       {isLoading ? (

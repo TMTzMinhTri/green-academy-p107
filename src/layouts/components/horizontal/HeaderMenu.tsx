@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, IconButton, Box } from '@mui/material'
+import { Grid, IconButton } from '@mui/material'
 import NewspaperVariantMultipleOutlineIcon from 'mdi-material-ui/NewspaperVariantMultipleOutline'
 import PlayBoxOutlineIcon from 'mdi-material-ui/PlayBoxOutline'
 import SealVariantIcon from 'mdi-material-ui/SealVariant'
@@ -15,21 +15,21 @@ const HeaderMenu = () => {
       sx={{ position: 'sticky', top: 0, zIndex: 2 }}
     >
       <Grid item>
-        <Link href={'/'}>
+        <Link href={'/'} passHref>
           <IconButton>
             <NewspaperVariantMultipleOutlineIcon fontSize='large' />
           </IconButton>
         </Link>
       </Grid>
       <Grid item>
-        <Link href={'/'}>
+        <Link href={'/'} passHref>
           <IconButton>
             <PlayBoxOutlineIcon fontSize='large' />
           </IconButton>
         </Link>
       </Grid>
       <Grid item>
-        <Link href={'/tin-tuc'}>
+        <Link href={'/tin-tuc'} passHref>
           <IconButton>
             <NewspaperVariantMultipleOutlineIcon fontSize='large' />
           </IconButton>

@@ -1,5 +1,4 @@
 // ** MUI Imports
-import { Button } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { useEffect } from 'react'
 import NewFeedForm from 'src/@core/components/NewFeedForm'
@@ -12,7 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(postActions.fetchListPost())
-  }, [])
+  }, [dispatch])
 
   return (
     <Grid container spacing={4}>
