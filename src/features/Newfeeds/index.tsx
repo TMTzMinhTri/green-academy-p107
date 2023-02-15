@@ -5,7 +5,7 @@ import { selectListPost, selectLoadingListPost } from 'src/@core/redux/post/post
 import NewFeedItem from 'src/@core/components/NewFeedItem'
 import { useDispatch } from 'react-redux'
 import { postActions } from 'src/@core/redux/post/post.slice'
-import { IPost } from 'src/@core/redux/post/types'
+import { IPayloadLikeAction, IPost } from 'src/@core/redux/post/types'
 import ModalSharePoint from './ModalSharePoint'
 import ModalSharePost from './ModalSharePost'
 import NewfeedLoading from './NewfeedLoading'
@@ -16,15 +16,8 @@ const NewFeeds: FunctionComponent = () => {
   const posts = useAppSelector(selectListPost)
   const isLoading = useAppSelector(selectLoadingListPost)
 
-  const handleClickLikePost = (item: IPost) => {
-    dispatch(
-      postActions.likePost({
-        id: item.id,
-        liked: item.user_liked,
-        classable_id: item.classable_id,
-        classable_type: item.classable_type
-      })
-    )
+  const handleClickLikePost = (params: IPayloadLikeAction) => {
+    dispatch(postActions.likePost(params))
   }
 
   const toggleModalPostList = ({ item, type }: { item: IPost; type: string }) => {
@@ -49,6 +42,13 @@ const NewFeeds: FunctionComponent = () => {
   const createNewComment = formValue => {
     console.log(formValue)
   }
+  const handleFetchChildComments = ({ pattern }: { id: number; page: number; pattern: string }) => {
+    dispatch(postActions.fetchChildComments({ pattern }))
+  }
+
+  const handleLikeComment = (params: IPayloadLikeAction) => {
+    dispatch(postActions.likeComment(params))
+  }
 
   return (
     <Grid container rowGap={4}>
@@ -66,6 +66,8 @@ const NewFeeds: FunctionComponent = () => {
                 onClickSharePoint={toggleModalPostList}
                 onCickSharePost={toggleModalPostList}
                 onSubmitComment={createNewComment}
+                onFetchChildComments={handleFetchChildComments}
+                onLikeComment={handleLikeComment}
               />
             )
           })}

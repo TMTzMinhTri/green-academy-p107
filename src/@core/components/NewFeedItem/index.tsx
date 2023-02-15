@@ -13,7 +13,7 @@ import {
   MenuItem,
   Typography
 } from '@mui/material'
-import { IPost } from 'src/@core/redux/post/types'
+import { IPayloadLikeAction, IPost } from 'src/@core/redux/post/types'
 import { DotsHorizontal, ThumbUp, ThumbUpOutline, MessageOutline, ShareOutline, MedalOutline } from 'mdi-material-ui'
 import { blue, grey, red } from '@mui/material/colors'
 import ReactTimeAgo from 'react-time-ago'
@@ -25,11 +25,13 @@ import CommentInput from '../Comment/CommentInput'
 
 interface INewFeedItemProps {
   item: IPost
-  onClickLikePost: (item: IPost) => void
+  onClickLikePost: (params: IPayloadLikeAction) => void
   onClickSharePoint: ({ item, type }: { item: IPost; type: 'share-point' }) => void
   onCickSharePost: ({ item, type }: { item: IPost; type: 'share-post' }) => void
   onFetchComments: ({ item }: { item: IPost }) => void
   onSubmitComment: (formValue: any) => void
+  onFetchChildComments: ({ id, page }: { id: number; page: number }) => void
+  onLikeComment: (params: { pattern: string }) => void
 }
 
 function NewFeedItem({
@@ -38,7 +40,9 @@ function NewFeedItem({
   onClickSharePoint,
   onCickSharePost,
   onFetchComments,
-  onSubmitComment
+  onSubmitComment,
+  onFetchChildComments,
+  onLikeComment
 }: INewFeedItemProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -59,6 +63,15 @@ function NewFeedItem({
     } else {
       inputRef?.current.focus()
     }
+  }
+  const handleClickLikePost = () => {
+    const pattern = `post-${item.id}`
+    onClickLikePost({
+      pattern,
+      classable_id: item.classable_id,
+      classable_type: item.classable_type,
+      liked: item.user_liked
+    })
   }
 
   return (
@@ -131,7 +144,7 @@ function NewFeedItem({
         </Box>
         <Box sx={{ backgroundColor: grey[100] }}>
           <ButtonGroup variant='text' aria-label='text button group' fullWidth>
-            <Button onClick={() => onClickLikePost(item)}>
+            <Button onClick={handleClickLikePost}>
               <Typography
                 variant='subtitle1'
                 component={'span'}
@@ -185,8 +198,14 @@ function NewFeedItem({
         </Box>
         <Box px={4} py={2}>
           {showInput && <CommentInput ref={inputRef} onSubmit={onSubmitComment} />}
-          {Object.values(item.comments).map(comment => (
-            <Comment item={comment} key={comment.id} />
+          {Object.values(item.comment).map(comment => (
+            <Comment
+              item={comment}
+              key={comment.id}
+              parrent={null}
+              onLikeComment={onLikeComment}
+              onLoadChildComment={onFetchChildComments}
+            />
           ))}
         </Box>
       </Card>

@@ -38,11 +38,11 @@ export interface IPost {
   created_at: string
   classable_id: number
   classable_type: string
-  comments: Record<string, IComment>
+  comment: Record<string, IComment>
 }
 
 export interface IPayloadLikeAction extends IParamsPolymorphic {
-  id: number
+  pattern: string
   liked: boolean
 }
 export interface IPayloadFetchComment extends IParamsPolymorphic {
@@ -50,7 +50,7 @@ export interface IPayloadFetchComment extends IParamsPolymorphic {
 }
 export interface IComment {
   id: number
-  classable_id: string
+  classable_id: number
   classable_type: string
   commentable_id: number
   commentable_type: string
@@ -63,4 +63,13 @@ export interface IComment {
   created_name: string
   created_at: string
   user: any
+  children: Record<string, IComment>
+  meta: IParamsPagination & {
+    isLoading: boolean
+  }
+}
+
+export interface ISubComment extends IComment {
+  sub_commentable_id: number
+  sub_commentable_type: string
 }
