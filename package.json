@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@emotion/cache": "^11.10.7",
@@ -15,18 +16,29 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
-    "@types/node": "18.15.13",
-    "@types/react": "18.0.38",
-    "@types/react-dom": "18.0.11",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.1",
+    "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query-devtools": "^4.32.6",
+    "axios": "^1.4.0",
+    "cookies-next": "^2.1.2",
+    "firebase": "^9.22.1",
     "next": "13.3.1",
-    "nprogress": "^0.2.0",
+    "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-simple-oauth2-login": "^0.5.4",
+    "swr": "^2.2.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.0"
+    "@types/node": "18.15.13",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "18.0.38",
+    "@types/react-dom": "18.0.11",
+    "@types/react-simple-oauth2-login": "^0.5.1",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "nprogress": "^0.2.0",
+    "prettier": "^3.0.2"
   }
 }

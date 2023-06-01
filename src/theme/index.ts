@@ -1,7 +1,9 @@
-import { Roboto } from "next/font/google";
 import type { ThemeOptions } from "@mui/material";
-import DefaultPalette from "./palette";
+import { Roboto } from "next/font/google";
+
 import { ISetting } from "@/contexts/settings";
+
+import DefaultPalette from "./palette";
 
 export const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

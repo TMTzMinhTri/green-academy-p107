@@ -1,12 +1,12 @@
-import { PaletteMode } from "@mui/material";
 import {
+  createContext,
   FC,
   PropsWithChildren,
-  createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
+import { PaletteMode } from "@mui/material";
 
 interface ISettingContext {
   setting: ISetting;
@@ -18,7 +18,7 @@ export interface ISetting {
   language: string;
 }
 const initialState: ISetting = {
-  mode: "light",
+  mode: "dark",
   language: "vi",
 };
 
