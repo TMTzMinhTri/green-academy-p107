@@ -1,15 +1,14 @@
-import type { ThemeOptions } from "@mui/material";
-import { Roboto } from "next/font/google";
+import { Roboto } from 'next/font/google';
+import { ISetting } from '@/contexts/settings';
+import type { ThemeOptions } from '@mui/material';
 
-import { ISetting } from "@/contexts/settings";
-
-import DefaultPalette from "./palette";
+import DefaultPalette from './palette';
 
 export const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  fallback: ["Helvetica", "Arial", "sans-serif"],
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
 
 const themeOptions = ({ mode }: ISetting): ThemeOptions => {

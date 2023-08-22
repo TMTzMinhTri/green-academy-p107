@@ -1,18 +1,29 @@
-import Axios from "axios";
-
-import { API_URL } from "@/config";
-import storage from "@/utils/storage";
+import { API_URL } from '@/config';
+import storage from '@/utils/storage';
+import Axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  isAxiosError,
+} from 'axios';
+import { getCookie } from 'cookies-next';
 
 const axios = Axios.create({
   baseURL: API_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
 });
 
+let refreshTOkenRequest: Promise<any> | null = null;
+
 axios.interceptors.request.use((config) => {
-  const token = storage.getToken();
+  const token = getCookie('access_token');
   if (token) {
-    config.headers.authorization = `${token}`;
+    config.headers.authorization = `Bearer ${token}`;
   }
-  config.headers.Accept = "application/json";
   return config;
 });
 
@@ -20,10 +31,34 @@ axios.interceptors.response.use(
   (response) => {
     return response.data;
   },
-  (error) => {
-    // const message = error.response?.data?.message || error.message;
-
-    return Promise.reject(error);
+  async (e: AxiosError | Error) => {
+    if (isAxiosError(e)) {
+      const config = e.config as AxiosRequestConfig;
+      const { status, data } =
+        (e.response as AxiosResponse<{ status: number; error: string }>) ?? {};
+      if (status === 401) {
+        if (data.error === 'JWTSessions::Errors::Unauthorized') {
+          storage.deleteToken();
+          storage.deleteCsrfToken();
+          return Promise.reject(e);
+        } else if (
+          /Signature has expired/.test(data.error) &&
+          config.url !== '/users/refresh_token'
+        ) {
+          refreshTOkenRequest = refreshTOkenRequest
+            ? refreshTOkenRequest
+            : axios.get('/users/refresh_token');
+          const { csrf, access, access_expires_at } = await refreshTOkenRequest;
+          storage.setToken(access, access_expires_at);
+          storage.setCsrfToken(csrf);
+          refreshTOkenRequest = null;
+          return axios(config);
+        } else {
+          return Promise.reject(e);
+        }
+      }
+    }
+    return Promise.reject(e);
   },
 );
 

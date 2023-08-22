@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
+  reactStrictMode: false,
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        options.defaultLoaders.babel,
+        {
+          loader: "@svgr/webpack",
+        },
+      ],
+    });
+    return config;
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

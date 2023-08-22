@@ -17,4 +17,8 @@ export declare global {
     children?: (INavGroup | INavLink)[];
   }
   type INavItems = (INavLink | INavGroup | INavSectionTitle)[];
+
+  type Shape<Fields extends Record<string, unknown>> = {
+    [Key in keyof Fields]: AnySchema<Fields[Key]>;
+  };
 }

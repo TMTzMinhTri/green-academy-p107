@@ -5,8 +5,8 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { PaletteMode } from "@mui/material";
+} from 'react';
+import { PaletteMode } from '@mui/material';
 
 interface ISettingContext {
   setting: ISetting;
@@ -18,8 +18,8 @@ export interface ISetting {
   language: string;
 }
 const initialState: ISetting = {
-  mode: "dark",
-  language: "vi",
+  mode: 'dark',
+  language: 'vi',
 };
 
 const SettingContext = createContext<ISettingContext | undefined>(undefined);
@@ -27,7 +27,7 @@ const SettingContext = createContext<ISettingContext | undefined>(undefined);
 const restoreSettings = (): ISetting | null => {
   let settings = null;
   try {
-    const storedData: string | null = window.localStorage.getItem("settings");
+    const storedData: string | null = window.localStorage.getItem('settings');
     if (storedData) {
       settings = {
         ...JSON.parse(storedData),
@@ -36,13 +36,13 @@ const restoreSettings = (): ISetting | null => {
       settings = initialState;
     }
   } catch (error) {
-    console.error(error);
+    throw new Error();
   }
   return settings;
 };
 
 const storeSettings = (setting: ISetting) => {
-  window.localStorage.setItem("settings", JSON.stringify(setting));
+  window.localStorage.setItem('settings', JSON.stringify(setting));
 };
 
 const SettingProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -70,7 +70,7 @@ const SettingProvider: FC<PropsWithChildren> = ({ children }) => {
 export const useSetting = () => {
   const settingContext = useContext(SettingContext);
   if (!settingContext) {
-    throw new Error("useSetting must be used within a SettingProvider");
+    throw new Error('useSetting must be used within a SettingProvider');
   }
   return settingContext;
 };

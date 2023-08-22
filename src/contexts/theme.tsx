@@ -1,14 +1,13 @@
-import { FC, PropsWithChildren } from "react";
-import { CssBaseline } from "@mui/material";
+import { FC, PropsWithChildren } from 'react';
+import themeOptions from '@/theme';
+import { CssBaseline } from '@mui/material';
 import {
   createTheme,
-  responsiveFontSizes,
   ThemeProvider as MuiThemeProvider,
-} from "@mui/material/styles";
+  responsiveFontSizes,
+} from '@mui/material/styles';
 
-import themeOptions from "@/theme";
-
-import { useSetting } from "./settings";
+import { useSetting } from './settings';
 
 const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const { setting } = useSetting();

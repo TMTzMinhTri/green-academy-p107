@@ -1,52 +1,31 @@
 {
-  "plugins": [
-    "simple-import-sort"
+  "extends": [
+    "next/core-web-vitals",
+    "next",
+    "prettier",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "eslint:recommended",
+    "google"
   ],
-  "extends": "next/core-web-vitals",
+  "plugins": [
+    "import",
+    "@tanstack/query"
+  ],
   "rules": {
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "no-console": "warn",
+    "no-unused-vars": "warn",
+    "@next/next/no-document-import-in-page": "off",
+    "no-undef": "off",
+    "object-curly-spacing": "off",
+    "require-jsdoc": "off",
+    "max-len": "off",
+    "indent": "off",
+    "no-useless-catch": "off",
+    "camelcase": "off",
+    "new-cap": "off",
+    "operator-linebreak": "off",
+    "quotes": "off",
+    "quote-props": "off",
     "react/display-name": "off"
-  },
-  "overrides": [
-    {
-      "files": [
-        "*.js",
-        "*.jsx",
-        "*.ts",
-        "*.tsx"
-      ],
-      "rules": {
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              [
-                "^react",
-                "^@?\\w"
-              ],
-              [
-                "^(@|components)(/.*|$)"
-              ],
-              [
-                "^\\u0000"
-              ],
-              [
-                "^\\.\\.(?!/?$)",
-                "^\\.\\./?$"
-              ],
-              [
-                "^\\./(?=.*/)(?!/?$)",
-                "^\\.(?!/?$)",
-                "^\\./?$"
-              ],
-              [
-                "^.+\\.?(css)$"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
+  }
 }

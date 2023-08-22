@@ -1,16 +1,26 @@
-const storagePrefix = "bulletproof_react_";
+import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
 
 const storage = {
   getToken: () => {
-    return JSON.parse(
-      window.localStorage.getItem(`${storagePrefix}token`) as string,
-    );
+    return window.localStorage.getItem('access_token');
   },
-  setToken: (token: string) => {
-    window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
+  setToken: (token: string, expired_at: number) => {
+    return Cookies.set('access_token', token, {
+      expires: dayjs().add(expired_at, 'seconds').toDate(),
+    });
   },
-  clearToken: () => {
-    window.localStorage.removeItem(`${storagePrefix}token`);
+  deleteToken() {
+    return Cookies.remove('access_token');
+  },
+  setCsrfToken: (token: string) => {
+    return window.localStorage.setItem('csrf', token);
+  },
+  deleteCsrfToken: () => {
+    return window.localStorage.removeItem('csrf');
+  },
+  getRefreshToken: () => {
+    return Cookies.get('jwt_refresh');
   },
 };
 
