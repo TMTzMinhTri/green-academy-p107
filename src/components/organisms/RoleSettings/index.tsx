@@ -1,15 +1,14 @@
-import { FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { useDisclosure } from '@/hooks/useDisclosure';
+import { usePermissions } from '@/services/permission/usePermisions';
 import Add from '@mui/icons-material/Add';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Pagination,
-  Paper,
-  Stack,
-} from '@mui/material';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Pagination from '@mui/material/Pagination';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,16 +16,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import CompanyFilter from '@/components/molecules/CompanyFillter';
-import CompanyFormModal from '@/components/molecules/CompanyFormModal';
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
+function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
   return { name, calories, fat, carbs, protein };
 }
 
@@ -38,20 +29,23 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const ListCompany: FC = () => {
+const RoleSettings = () => {
+  const { data } = usePermissions();
   const { isOpen: openFormModal, open, close } = useDisclosure();
+
+  console.log(data);
   return (
     <Fragment>
       <Card>
         <CardContent>
           <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h6">Companies</Typography>
+              <Typography variant="h6">Roles</Typography>
               <Button variant="contained" color="primary" onClick={open}>
                 <Add />
               </Button>
             </Stack>
-            <CompanyFilter />
+            {/* <CompanyFilter /> */}
             <TableContainer component={Paper} variant="outlined">
               <Table aria-label="simple table">
                 <TableHead>
@@ -65,10 +59,7 @@ const ListCompany: FC = () => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
+                    <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
@@ -87,9 +78,8 @@ const ListCompany: FC = () => {
           <Pagination />
         </CardActions>
       </Card>
-      <CompanyFormModal open={openFormModal} onClose={close} />
     </Fragment>
   );
 };
 
-export default ListCompany;
+export default RoleSettings;

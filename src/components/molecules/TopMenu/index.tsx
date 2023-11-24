@@ -12,31 +12,17 @@ const Button = styled(MuiButton)(() => ({
 }));
 
 const TopMenu = () => {
-  const [anchorElSample, { close: closeSample, open: openSample }] =
-    useToggle();
-  const [
-    anchorElSampleResult,
-    { close: closeSampleResult, open: openSampleResult },
-  ] = useToggle();
-  const [anchorElMasterData, { close: closeMasterData, open: openMasterData }] =
-    useToggle();
+  const [anchorElSample, { close: closeSample, open: openSample }] = useToggle();
+  const [anchorElSampleResult, { close: closeSampleResult, open: openSampleResult }] = useToggle();
+  const [anchorElMasterData, { close: closeMasterData, open: openMasterData }] = useToggle();
   const [anchorElSetup, { close: closeSetup, open: openSetup }] = useToggle();
-  const [anchorElReport, { close: closeReport, open: openReport }] =
-    useToggle();
-  const [anchorElUpload, { close: closeUpload, open: openUpload }] =
-    useToggle();
+  const [anchorElReport, { close: closeReport, open: openReport }] = useToggle();
+  const [anchorElUpload, { close: closeUpload, open: openUpload }] = useToggle();
 
   return (
     <Grid container spacing={1}>
       <Grid item xs>
-        <Button
-          variant="contained"
-          fullWidth
-          color="primary"
-          size="small"
-          LinkComponent={Link}
-          href="/"
-        >
+        <Button variant="contained" fullWidth color="primary" size="small" LinkComponent={Link} href="/">
           home
         </Button>
       </Grid>
@@ -51,17 +37,8 @@ const TopMenu = () => {
         >
           sample
         </Button>
-        <Menu
-          anchorEl={anchorElSample}
-          open={Boolean(anchorElSample)}
-          onClose={closeSample}
-        >
-          <MenuItem
-            onClick={closeSample}
-            disableRipple
-            component={Link}
-            href="/sample/create-sample"
-          >
+        <Menu anchorEl={anchorElSample} open={Boolean(anchorElSample)} onClose={closeSample}>
+          <MenuItem onClick={closeSample} disableRipple component={Link} href="/sample/create-sample">
             create sample
           </MenuItem>
           <MenuItem onClick={closeSample} disableRipple>
@@ -89,11 +66,7 @@ const TopMenu = () => {
         >
           sample result
         </Button>
-        <Menu
-          anchorEl={anchorElSampleResult}
-          open={Boolean(anchorElSampleResult)}
-          onClose={closeSampleResult}
-        >
+        <Menu anchorEl={anchorElSampleResult} open={Boolean(anchorElSampleResult)} onClose={closeSampleResult}>
           <MenuItem onClick={closeSampleResult} disableRipple>
             Edit
           </MenuItem>
@@ -119,11 +92,7 @@ const TopMenu = () => {
         >
           master data
         </Button>
-        <Menu
-          anchorEl={anchorElMasterData}
-          open={Boolean(anchorElMasterData)}
-          onClose={closeMasterData}
-        >
+        <Menu anchorEl={anchorElMasterData} open={Boolean(anchorElMasterData)} onClose={closeMasterData}>
           <MenuItem onClick={closeMasterData} disableRipple>
             Edit
           </MenuItem>
@@ -149,18 +118,18 @@ const TopMenu = () => {
         >
           setup
         </Button>
-        <Menu
-          anchorEl={anchorElSetup}
-          open={Boolean(anchorElSetup)}
-          onClose={closeSetup}
-        >
-          <MenuItem
-            onClick={closeSetup}
-            disableRipple
-            href={router.setup.companies()}
-            component={Link}
-          >
+        <Menu anchorEl={anchorElSetup} open={Boolean(anchorElSetup)} onClose={closeSetup}>
+          <MenuItem onClick={closeSetup} disableRipple href={router.setup.companies()} component={Link}>
             Companies
+          </MenuItem>
+          <MenuItem onClick={closeSetup} disableRipple href={router.setup.users()} component={Link}>
+            Users
+          </MenuItem>
+          <MenuItem onClick={closeSetup} disableRipple href={router.setup.roles()} component={Link}>
+            Roles
+          </MenuItem>
+          <MenuItem onClick={closeSetup} disableRipple href={router.setup.permissions()} component={Link}>
+            Permissions
           </MenuItem>
         </Menu>
       </Grid>
@@ -175,11 +144,7 @@ const TopMenu = () => {
         >
           report
         </Button>
-        <Menu
-          anchorEl={anchorElReport}
-          open={Boolean(anchorElReport)}
-          onClose={closeReport}
-        >
+        <Menu anchorEl={anchorElReport} open={Boolean(anchorElReport)} onClose={closeReport}>
           <MenuItem onClick={closeReport} disableRipple>
             test
           </MenuItem>
@@ -205,11 +170,7 @@ const TopMenu = () => {
         >
           upload
         </Button>
-        <Menu
-          anchorEl={anchorElUpload}
-          open={Boolean(anchorElUpload)}
-          onClose={closeUpload}
-        >
+        <Menu anchorEl={anchorElUpload} open={Boolean(anchorElUpload)} onClose={closeUpload}>
           <MenuItem onClick={closeUpload} disableRipple>
             Edit
           </MenuItem>

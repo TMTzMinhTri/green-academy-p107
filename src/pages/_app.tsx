@@ -42,15 +42,10 @@ export default function MyApp(props: MyAppProps) {
       <HydrationBoundary state={pageProps.dehydratedState}>
         <CacheProvider value={emotionCache}>
           <Head>
-            <meta
-              name="viewport"
-              content="initial-scale=1, width=device-width"
-            />
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
           </Head>
           <SettingProvider>
-            <ThemeProvider>
-              {getLayout(<Component {...pageProps} />)}
-            </ThemeProvider>
+            <ThemeProvider>{getLayout(<Component {...pageProps} />)}</ThemeProvider>
             <ReactQueryDevtools />
           </SettingProvider>
         </CacheProvider>

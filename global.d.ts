@@ -21,4 +21,8 @@ export declare global {
   type Shape<Fields extends Record<string, unknown>> = {
     [Key in keyof Fields]: AnySchema<Fields[Key]>;
   };
+
+  interface IApiResponse<T = any> {
+    data: T
+  }
 }
