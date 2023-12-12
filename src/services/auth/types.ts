@@ -1,5 +1,5 @@
 export type ILoginParams = {
-  login: string;
+  email: string;
   password: string;
 };
 

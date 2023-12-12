@@ -1,11 +1,6 @@
 import { API_URL } from '@/config';
 import storage from '@/utils/storage';
-import Axios, {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse,
-  isAxiosError,
-} from 'axios';
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
 const axios = Axios.create({
@@ -34,20 +29,14 @@ axios.interceptors.response.use(
   async (e: AxiosError | Error) => {
     if (isAxiosError(e)) {
       const config = e.config as AxiosRequestConfig;
-      const { status, data } =
-        (e.response as AxiosResponse<{ status: number; error: string }>) ?? {};
+      const { status, data } = (e.response as AxiosResponse<{ status: number; error: string }>) ?? {};
       if (status === 401) {
         if (data.error === 'JWTSessions::Errors::Unauthorized') {
           storage.deleteToken();
           storage.deleteCsrfToken();
           return Promise.reject(e);
-        } else if (
-          /Signature has expired/.test(data.error) &&
-          config.url !== '/users/refresh_token'
-        ) {
-          refreshTOkenRequest = refreshTOkenRequest
-            ? refreshTOkenRequest
-            : axios.get('/users/refresh_token');
+        } else if (/Signature has expired/.test(data.error) && config.url !== '/users/refresh_token') {
+          refreshTOkenRequest = refreshTOkenRequest ? refreshTOkenRequest : axios.get('/users/refresh_token');
           const { csrf, access, access_expires_at } = await refreshTOkenRequest;
           storage.setToken(access, access_expires_at);
           storage.setCsrfToken(csrf);

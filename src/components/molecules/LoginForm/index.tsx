@@ -12,7 +12,7 @@ import { Form, PasswordField } from '@/components/atoms';
 interface ILoginFormControllerProps {}
 
 const scheme = yup.object({
-  login: yup.string().trim().required(),
+  email: yup.string().trim().required(),
   password: yup.string().trim().required(),
 });
 
@@ -20,11 +20,15 @@ const LoginFormController: FC<ILoginFormControllerProps> = () => {
   const login = useLogin();
 
   const handleSubmitLogin = async (values: ILoginParams) => {
-    await login.mutateAsync({
-      ...values,
-    });
+    try {
+      await login.mutateAsync({
+        ...values,
+      });
 
-    Router.replace('/');
+      Router.replace('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -32,7 +36,7 @@ const LoginFormController: FC<ILoginFormControllerProps> = () => {
       onSubmit={handleSubmitLogin}
       schema={scheme}
       options={{
-        defaultValues: { login: '', password: '' },
+        defaultValues: { email: '', password: '' },
         mode: 'onSubmit',
       }}
     >
@@ -41,14 +45,14 @@ const LoginFormController: FC<ILoginFormControllerProps> = () => {
           <div>
             <Controller
               control={control}
-              name="login"
+              name="email"
               render={({ field }) => (
                 <TextField
                   {...field}
                   autoComplete="username"
                   fullWidth
-                  error={Boolean(errors.login?.message)}
-                  helperText={errors.login?.message}
+                  error={Boolean(errors.email?.message)}
+                  helperText={errors.email?.message}
                   margin="normal"
                   label="Username"
                 />
@@ -70,12 +74,7 @@ const LoginFormController: FC<ILoginFormControllerProps> = () => {
               )}
             />
           </div>
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            disabled={isSubmitting || !isValid}
-          >
+          <Button fullWidth type="submit" variant="contained" disabled={!isValid}>
             Login
           </Button>
         </Stack>

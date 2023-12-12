@@ -1,12 +1,5 @@
 import { AppType } from 'next/app';
-import Document, {
-  DocumentContext,
-  DocumentProps,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from 'next/document';
+import Document, { DocumentContext, DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 import createEmotionCache from '@/libs/createEmotionCache';
 import { roboto } from '@/theme';
 import createEmotionServer from '@emotion/server/create-instance';
@@ -64,9 +57,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (
-        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>,
-      ) =>
+      enhanceApp: (App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />;
         },

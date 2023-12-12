@@ -14,13 +14,13 @@ interface IBaseLayoutProps {
 
 const BaseLayout: FC<PropsWithChildren<IBaseLayoutProps>> = ({ children, breadcrumbs }) => {
   return (
-    <AuthWrapper
-      renderLoading={() => (
-        <Backdrop open invisible>
-          <CircularProgress />
-        </Backdrop>
-      )}
-    >
+    // <AuthWrapper
+    //   renderLoading={() => (
+    //     <Backdrop open invisible>
+    //       <CircularProgress />
+    //     </Backdrop>
+    //   )}
+    // >
       <Fragment>
         <MuiAppBar position="fixed">
           <Toolbar>
@@ -56,7 +56,7 @@ const BaseLayout: FC<PropsWithChildren<IBaseLayoutProps>> = ({ children, breadcr
           </Grid>
         </Container>
       </Fragment>
-    </AuthWrapper>
+    // </AuthWrapper>
   );
 };
 

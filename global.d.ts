@@ -3,6 +3,7 @@ export declare global {
     sectionTitle: string;
   }
 
+
   interface INavLink {
     icon?: string;
     path?: string;
@@ -24,5 +25,10 @@ export declare global {
 
   interface IApiResponse<T = any> {
     data: T
+  };
+
+  interface Window {
+    FB: any;
+    fbAsyncInit: () => void;
   }
 }
