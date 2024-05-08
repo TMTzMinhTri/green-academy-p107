@@ -8,13 +8,10 @@
   "editor.formatOnType": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.format": true,
-    "source.fixAll.stylelint": true
+    "source.fixAll.eslint": "always",
+    "source.fixAll.format": "always",
+    "source.fixAll.stylelint": "always"
   },
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ],
+  "stylelint.validate": ["css", "scss"],
   "prettier.configPath": ".prettierrc.js"
 }

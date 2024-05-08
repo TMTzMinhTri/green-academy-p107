@@ -3,17 +3,20 @@ import { ReactElement } from 'react';
 import { NextPage } from 'next';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { GetServerSidePropsContext } from 'next/types';
-import { BaseLayout, CompanySettings, PermissionSettings, RoleSettings, UserSettings } from '@/components';
-
+import { BaseLayout } from '@/components';
+import { CompanyList } from '@/features/setting-company'
+import { PermissionList } from '@/features/setting-permission'
+import { RoleList } from '@/features/setting-role'
+import { UserList } from '@/features/setting-user'
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 
 const PageFactories: Record<string, ReactElement> = {
-  companies: <CompanySettings />,
-  users: <UserSettings />,
-  permissions: <PermissionSettings />,
-  roles: <RoleSettings />,
+  companies: <CompanyList />,
+  users: <UserList />,
+  permissions: <PermissionList />,
+  roles: <RoleList />,
 };
 
 export function getServerSideProps(ctx: GetServerSidePropsContext<IParams>) {
