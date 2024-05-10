@@ -1,5 +1,4 @@
 import { FC, Fragment } from 'react';
-import { useDisclosure } from '@/hooks/useDisclosure';
 import Add from '@mui/icons-material/Add';
 import { Card, CardActions, CardContent, Pagination, Paper, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -10,8 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import CompanyFilter from '@/components/molecules/CompanyFillter';
-import CompanyFormModal from '@/components/molecules/CompanyFormModal';
+import CompanyFilter from './CompanyFillter';
 
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
   return { name, calories, fat, carbs, protein };
@@ -26,7 +24,6 @@ const rows = [
 ];
 
 const CompanyList: FC = () => {
-  const { isOpen: openFormModal, open, close } = useDisclosure();
   return (
     <Fragment>
       <Card>
@@ -34,7 +31,7 @@ const CompanyList: FC = () => {
           <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h6">Companies</Typography>
-              <Button variant="contained" color="primary" onClick={open}>
+              <Button variant="contained" color="primary">
                 <Add />
               </Button>
             </Stack>
@@ -71,7 +68,6 @@ const CompanyList: FC = () => {
           <Pagination />
         </CardActions>
       </Card>
-      <CompanyFormModal open={openFormModal} onClose={close} />
     </Fragment>
   );
 };

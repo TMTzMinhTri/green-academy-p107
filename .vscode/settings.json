@@ -13,5 +13,8 @@
     "source.fixAll.stylelint": "always"
   },
   "stylelint.validate": ["css", "scss"],
-  "prettier.configPath": ".prettierrc.js"
+  "prettier.configPath": ".prettierrc.js",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

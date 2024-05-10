@@ -1,11 +1,9 @@
 import { ReactNode } from 'react';
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
-import { BaseLayout, Link } from '@/components';
+import { BaseLayout } from '@/layouts';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-
-const Text = dynamic(() => import('@/components/molecules/Test'), { ssr: false });
+import { Link } from '@/components';
 
 const HomePage: NextPage = () => {
   return (
@@ -28,7 +26,6 @@ const HomePage: NextPage = () => {
       >
         link
       </Link>
-      <Text />
     </>
   );
 };

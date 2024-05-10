@@ -3,14 +3,11 @@ import { useDisclosure } from '@/hooks/useDisclosure';
 import { usePermissions } from '@/services/permission/usePermisions';
 import Add from '@mui/icons-material/Add';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Backdrop, CircularProgress } from '@mui/material';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
@@ -22,7 +19,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { Case, Default, Switch } from '@/components/atoms';
+import { Case, Default, Switch } from '@/components';
 
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
   return { name, calories, fat, carbs, protein };

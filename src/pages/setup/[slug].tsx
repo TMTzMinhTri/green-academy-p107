@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { NextPage } from 'next';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { GetServerSidePropsContext } from 'next/types';
-import { BaseLayout } from '@/components';
+import { BaseLayout } from '@/layouts';
 import { CompanyList } from '@/features/setting-company'
 import { PermissionList } from '@/features/setting-permission'
 import { RoleList } from '@/features/setting-role'

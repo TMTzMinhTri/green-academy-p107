@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { useDisclosure } from '@/hooks/useDisclosure';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -6,13 +6,13 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
-const PasswordField: FC<TextFieldProps> = forwardRef((props, ref) => {
+const PasswordField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const { isOpen, toggle } = useDisclosure();
 
   return (
     <TextField
       {...props}
-      ref={ref}
+      inputRef={ref}
       fullWidth
       type={isOpen ? 'text' : 'password'}
       autoComplete="current-password"

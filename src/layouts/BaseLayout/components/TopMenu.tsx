@@ -5,7 +5,7 @@ import { Grid, MenuItem } from '@mui/material';
 import MuiButton from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { styled } from '@mui/material/styles';
-import Link from '@/components/atoms/Link';
+import Link from '@/components/Link';
 
 const Button = styled(MuiButton)(() => ({
   justifyContent: 'space-between',

@@ -10,8 +10,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import CompanyFilter from '@/components/molecules/CompanyFillter';
-import UserFormModal from '@/components/molecules/UserFormModal';
+// import CompanyFilter from '@/components/molecules/CompanyFillter';
+// import UserFormModal from '@/components/molecules/UserFormModal';
 
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
   return { name, calories, fat, carbs, protein };
@@ -38,7 +38,7 @@ const UserList: FC = () => {
                 <Add />
               </Button>
             </Stack>
-            <CompanyFilter />
+            {/* <CompanyFilter /> */}
             <TableContainer component={Paper} variant="outlined">
               <Table aria-label="simple table">
                 <TableHead>
@@ -71,7 +71,7 @@ const UserList: FC = () => {
           <Pagination />
         </CardActions>
       </Card>
-      <UserFormModal open={openFormModal} onClose={close} />
+      {/* <UserFormModal open={openFormModal} onClose={close} /> */}
     </Fragment>
   );
 };
